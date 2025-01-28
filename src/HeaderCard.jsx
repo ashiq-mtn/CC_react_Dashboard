@@ -1,13 +1,19 @@
-function HeaderCard () {
+import { useWasteData } from './hooks/useWasteData';
+
+function HeaderCard() {
+  const { totalBins, totalWaste, commonWaste, filledBins, isLoading } = useWasteData();
+
   return (
     <div className='flex flex-wrap justify-between gapb-2 mt-5 mb-5'>
       <div className='pb-2 w-full md:w-[calc(50%-1rem)] lg:w-[calc(25%-1rem)]'>
         <div className='rounded-sm h-full bg-blue-500 px-5 py-4 flex justify-between items-center'>
-          <div class='flex flex-col'>
-            <p class='text-white dark:text-white text-base whitespace-nowrap truncate'>
+          <div className='flex flex-col'>
+            <p className='text-white dark:text-white text-base whitespace-nowrap truncate'>
               Total Bins
             </p>
-            <p class='text-white dark:text-white text-3xl'>5</p>
+            <p className='text-white dark:text-white text-3xl'>
+              {isLoading ? '...' : totalBins}
+            </p>
           </div>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -15,7 +21,7 @@ function HeaderCard () {
             viewBox='0 0 24 24'
             strokeWidth='1.5'
             stroke='white'
-            class='w-10 h-10'
+            className='w-10 h-10'
           >
             <path
               strokeLinecap='round'
@@ -28,11 +34,13 @@ function HeaderCard () {
 
       <div className='pb-2 w-full md:w-[calc(50%-1rem)] lg:w-[calc(25%-1rem)]'>
         <div className='rounded-sm h-full dark:bg-emerald-600 px-5 py-4 flex justify-between items-center'>
-          <div class='flex flex-col'>
-            <p class='text-white dark:text-white text-base whitespace-nowrap truncate'>
+          <div className='flex flex-col'>
+            <p className='text-white dark:text-white text-base whitespace-nowrap truncate'>
               Total Waste
             </p>
-            <p class='text-white dark:text-white text-3xl'>5</p>
+            <p className='text-white dark:text-white text-3xl'>
+              {isLoading ? '...' : `${totalWaste}`}
+            </p>
           </div>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -53,11 +61,13 @@ function HeaderCard () {
 
       <div className='pb-2 w-full md:w-[calc(50%-1rem)] lg:w-[calc(25%-1rem)]'>
         <div className='rounded-sm h-full bg-amber-700 px-5 py-4 flex justify-between items-center'>
-          <div class='flex flex-col'>
-            <p class='text-white dark:text-white text-base whitespace-nowrap truncate'>
+          <div className='flex flex-col'>
+            <p className='text-white dark:text-white text-base whitespace-nowrap truncate'>
               Common Waste
             </p>
-            <p class='text-white dark:text-white text-3xl'>Plastic</p>
+            <p className='text-white dark:text-white text-3xl'>
+              {isLoading ? '...' : commonWaste}
+            </p>
           </div>
 
           <svg
@@ -79,11 +89,13 @@ function HeaderCard () {
 
       <div className='pb-2 w-full md:w-[calc(50%-1rem)] lg:w-[calc(25%-1rem)]'>
         <div className='rounded-sm h-full bg-rose-700 px-5 py-4 flex justify-between items-center'>
-          <div class='flex flex-col'>
-            <p class='text-white dark:text-white text-base whitespace-nowrap truncate'>
+          <div className='flex flex-col'>
+            <p className='text-white dark:text-white text-base whitespace-nowrap truncate'>
               Filled Bins
             </p>
-            <p class='text-white dark:text-white text-3xl'>2</p>
+            <p className='text-white dark:text-white text-3xl'>
+              {isLoading ? '...' : filledBins}
+            </p>
           </div>
 
           <svg
@@ -103,7 +115,7 @@ function HeaderCard () {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default HeaderCard
+export default HeaderCard;
