@@ -1,8 +1,8 @@
 function HeaderCard () {
   return (
-    <div class='flex flex-wrap justify-around mt-5 mb-5'>
-      <div class='p-4 max-w-sm lg:max-w-md w-full'>
-        <div class='rounded-sm h-full dark:bg-blue-500 bg-teal-400 px-5 py-4 flex justify-between items-center'>
+    <div className='flex flex-wrap justify-between gapb-2 mt-5 mb-5'>
+      <div className='pb-2 w-full md:w-[calc(50%-1rem)] lg:w-[calc(25%-1rem)]'>
+        <div className='rounded-sm h-full bg-blue-500 px-5 py-4 flex justify-between items-center'>
           <div class='flex flex-col'>
             <p class='text-white dark:text-white text-base whitespace-nowrap truncate'>
               Total Bins
@@ -26,8 +26,8 @@ function HeaderCard () {
         </div>
       </div>
 
-      <div class='p-4 max-w-sm lg:max-w-md w-full'>
-        <div class='rounded-sm h-full dark:bg-emerald-600 bg-teal-400 px-5 py-4 flex justify-between items-center'>
+      <div className='pb-2 w-full md:w-[calc(50%-1rem)] lg:w-[calc(25%-1rem)]'>
+        <div className='rounded-sm h-full dark:bg-emerald-600 px-5 py-4 flex justify-between items-center'>
           <div class='flex flex-col'>
             <p class='text-white dark:text-white text-base whitespace-nowrap truncate'>
               Total Waste
@@ -51,8 +51,8 @@ function HeaderCard () {
         </div>
       </div>
 
-      <div class='p-4 max-w-sm lg:max-w-md w-full'>
-        <div class='rounded-sm h-full dark:bg-amber-700 bg-teal-400 px-5 py-4 flex justify-between items-center'>
+      <div className='pb-2 w-full md:w-[calc(50%-1rem)] lg:w-[calc(25%-1rem)]'>
+        <div className='rounded-sm h-full bg-amber-700 px-5 py-4 flex justify-between items-center'>
           <div class='flex flex-col'>
             <p class='text-white dark:text-white text-base whitespace-nowrap truncate'>
               Common Waste
@@ -77,8 +77,8 @@ function HeaderCard () {
         </div>
       </div>
 
-      <div class='p-4 max-w-sm lg:max-w-md w-full'>
-        <div class='rounded-sm h-full dark:bg-rose-700 bg-teal-400 px-5 py-4 flex justify-between items-center'>
+      <div className='pb-2 w-full md:w-[calc(50%-1rem)] lg:w-[calc(25%-1rem)]'>
+        <div className='rounded-sm h-full bg-rose-700 px-5 py-4 flex justify-between items-center'>
           <div class='flex flex-col'>
             <p class='text-white dark:text-white text-base whitespace-nowrap truncate'>
               Filled Bins
