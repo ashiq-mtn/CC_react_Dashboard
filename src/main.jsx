@@ -2,19 +2,19 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
 import './index.css'
-import LogTable from './LogTable.jsx'
-import Maps from './Map.jsx'
-import Nav from './Nav.jsx'
-import HeaderCard from './HeaderCard.jsx'
-import PieChart from './PieChart.jsx'
-import Table from './Table-copy.jsx'
+import Navbar from './components/Navbar.jsx'
+import Maps from './components/Map.jsx'
+import HeaderCard from './components/HeaderCard.jsx'
+import PieChart from './components/PieChart.jsx'
+import Table from './components/Table.jsx'
+import Toast from './components/Toast.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     {/* Root container */}
     <div className='min-h-screen w-full overflow-x-hidden'>
       {/* Navigation */}
-      <Nav />
+      <Navbar />
 
       {/* Main content */}
       <main className='flex-1 p-6'>
@@ -31,6 +31,7 @@ createRoot(document.getElementById('root')).render(
         </div>
 
         <Table />
+        <Toast />
       </main>
     </div>
   </StrictMode>

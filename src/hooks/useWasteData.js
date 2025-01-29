@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchWasteData } from '../readData';
+import { fetchWasteData } from './readData';
 
 export function useWasteData() {
   const [data, setData] = useState({

@@ -1,36 +1,34 @@
 import React, { useEffect, useRef } from 'react'
-import { useWasteData } from './hooks/useWasteData';
+import { useWasteData } from '../hooks/useWasteData'
 
-function PieChart() {
-  const chartRef = useRef(null);
-  const chartInstance = useRef(null);
-  const previousData = useRef(null);
-  const isInitialLoad = useRef(true);
-  const { pieChartData, isLoading } = useWasteData();
+function PieChart () {
+  const chartRef = useRef(null)
+  const chartInstance = useRef(null)
+  const previousData = useRef(null)
+  const isInitialLoad = useRef(true)
+  const { pieChartData, isLoading } = useWasteData()
 
   const hasDataChanged = () => {
-    if (!previousData.current) return true;
-    return JSON.stringify(previousData.current) !== JSON.stringify(pieChartData);
-  };
+    if (!previousData.current) return true
+    return JSON.stringify(previousData.current) !== JSON.stringify(pieChartData)
+  }
 
   useEffect(() => {
     if (window.Chart && !isLoading) {
       if (chartInstance.current) {
-        chartInstance.current.destroy();
+        chartInstance.current.destroy()
       }
 
       const dataPie = {
         labels: ['Plastic', 'Paper', 'Other'],
-        datasets: [{
-          data: pieChartData.values,
-          backgroundColor: [
-            '#2DCE89',
-            '#68D7FE',
-            '#F4777C'
-          ],
-          hoverOffset: 4
-        }]
-      };
+        datasets: [
+          {
+            data: pieChartData.values,
+            backgroundColor: ['#2DCE89', '#68D7FE', '#F4777C'],
+            hoverOffset: 4
+          }
+        ]
+      }
 
       const configPie = {
         type: 'pie',
@@ -42,19 +40,19 @@ function PieChart() {
             duration: isInitialLoad.current || hasDataChanged() ? 750 : 0
           }
         }
-      };
+      }
 
-      chartInstance.current = new window.Chart(chartRef.current, configPie);
-      previousData.current = pieChartData;
-      isInitialLoad.current = false;
+      chartInstance.current = new window.Chart(chartRef.current, configPie)
+      previousData.current = pieChartData
+      isInitialLoad.current = false
     }
 
     return () => {
       if (chartInstance.current) {
-        chartInstance.current.destroy();
+        chartInstance.current.destroy()
       }
-    };
-  }, [pieChartData, isLoading]);
+    }
+  }, [pieChartData, isLoading])
 
   return (
     <div className='flex flex-col bg-white rounded-sm h-full'>
@@ -66,7 +64,7 @@ function PieChart() {
         <canvas ref={chartRef} className='w-full max-w-md h-auto mx-auto p-4' />
       </div>
     </div>
-  );
+  )
 }
 
-export default PieChart;
+export default PieChart

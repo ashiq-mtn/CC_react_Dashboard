@@ -27,7 +27,7 @@ const Maps = () => {
           center: [76.8220416, 9.528], // Coordinates of map center
           zoom: 17 // Initial zoom level
         })
-
+        const popup = olaMaps.addPopup({ offset: [0, -30], anchor: 'bottom' }).setHTML('<div>This is a simple Popup</div>')
         // Add a marker to the map
         olaMaps
           .addMarker({
@@ -36,7 +36,8 @@ const Maps = () => {
             color: 'red',
             draggable: false
           })
-          .setLngLat([76.8220416, 9.52876]) // Marker position
+          .setLngLat([76.8220416, 9.52876]) 
+          .setPopup(popup)
           .addTo(olaMap)
         olaMaps
           .addMarker({
@@ -45,7 +46,7 @@ const Maps = () => {
             color: 'red',
             draggable: false
           })
-          .setLngLat([76.821451, 9.528223]) // Marker position
+          .setLngLat([76.821451, 9.528223]) 
           .addTo(olaMap)
         olaMaps
           .addMarker({
@@ -54,7 +55,7 @@ const Maps = () => {
             color: 'red',
             draggable: false
           })
-          .setLngLat([76.82238, 9.527512]) // Marker position
+          .setLngLat([76.82238, 9.527512]) 
           .addTo(olaMap)
         olaMaps
           .addMarker({
@@ -63,7 +64,7 @@ const Maps = () => {
             color: 'red',
             draggable: false
           })
-          .setLngLat([76.822876, 9.528128]) // Marker position
+          .setLngLat([76.822876, 9.528128]) 
           .addTo(olaMap)
         olaMaps
           .addMarker({
@@ -72,7 +73,7 @@ const Maps = () => {
             color: 'red',
             draggable: false
           })
-          .setLngLat([76.82124, 9.5272]) // Marker position
+          .setLngLat([76.82124, 9.5272]) 
           .addTo(olaMap)
 
         // Cleanup function to remove map instance when component unmounts
