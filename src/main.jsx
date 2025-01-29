@@ -7,7 +7,7 @@ import Maps from './Map.jsx'
 import Nav from './Nav.jsx'
 import HeaderCard from './HeaderCard.jsx'
 import PieChart from './PieChart.jsx'
-import Table from './Table.jsx'
+import Table from './Table-copy.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
