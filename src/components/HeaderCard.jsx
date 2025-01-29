@@ -1,9 +1,7 @@
 import { useWasteData } from '../hooks/useWasteData'
 
 function HeaderCard () {
-  const { totalBins, totalWaste, commonWaste, filledBins, isLoading } =
-    useWasteData()
-
+  const { totalBins, totalWaste, commonWaste, filledBins, isLoading } = useWasteData()
   return (
     <div className='flex flex-wrap justify-between gapb-2 mt-5 mb-5'>
       <div className='pb-2 w-full md:w-[calc(50%-1rem)] lg:w-[calc(25%-1rem)]'>

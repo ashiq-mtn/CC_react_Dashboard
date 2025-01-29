@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react'
+// import { useNavigate } from 'react-router-dom'; //No page reload,Faster navigation,Preserves React state
 
 function Navbar () {
+  // const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const dropdownRef = useRef(null)
 
@@ -18,6 +20,12 @@ function Navbar () {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen)
   }
+
+  const handleSignOut = () => {
+    window.location.href = '/';
+    // setIsDropdownOpen(false);
+    // navigate('/');
+  };
 
   return (
     <nav className='bg-teal-950 border-gray-200 w-full'>
@@ -48,7 +56,12 @@ function Navbar () {
           {isDropdownOpen && (
             <div className='absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10'>
               <a href='#' className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'>Profile</a>
-              <a href='#' className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'>Sign Out</a>
+              <button 
+                onClick={handleSignOut}
+                className='w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
+              >
+                Sign Out
+              </button>
             </div>
           )}
         </div>
