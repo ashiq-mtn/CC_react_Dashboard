@@ -1,38 +1,37 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { useState } from 'react'
 
 import './index.css'
-import Navbar from './components/Navbar.jsx'
-import Maps from './components/Map.jsx'
-import HeaderCard from './components/HeaderCard.jsx'
-import PieChart from './components/PieChart.jsx'
-import Table from './components/Table.jsx'
-import Toast from './components/Toast.jsx'
+
+import Dashboard from './components/Dashboard'
+import SignIn from './components/SignIn'
+
+
+function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+  };
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" 
+          element= {!isAuthenticated ? <SignIn onLogin={handleLogin} /> : <Navigate to="/dashboard" />} 
+        />
+        <Route path="/dashboard" 
+          element={isAuthenticated ? <Dashboard /> : <Navigate to="/" />} 
+        />
+      </Routes>
+    </BrowserRouter>
+  );
+}
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    {/* Root container */}
-    <div className='min-h-screen w-full overflow-x-hidden'>
-      {/* Navigation */}
-      <Navbar />
-
-      {/* Main content */}
-      <main className='flex-1 p-6'>
-        <HeaderCard />
-
-        {/* Charts section */}
-        <div className='flex flex-col lg:flex-row gap-8 lg:gap-4 my-5 mt-9'>
-          <div className='flex-1 bg-white rounded-sm shadow-md'>
-            <PieChart />
-          </div>
-          <div className='flex-1 bg-white rounded-sm shadow-md min-h-[300px]'>
-            <Maps />
-          </div>
-        </div>
-
-        <Table />
-        <Toast />
-      </main>
-    </div>
+    <App />
   </StrictMode>
-)
+);

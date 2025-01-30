@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { fetchWasteData } from './readData';
 
 export function useWasteData() {
@@ -12,8 +12,11 @@ export function useWasteData() {
     error: null,
     pieChartData: {
       values: []
-    }
+    },
+    newHighFillBins: [] // Add this to track newly filled bins
   });
+  
+  const previousHighFillBins = useRef(new Set());
 
   useEffect(() => {
     const getData = async () => {
@@ -48,6 +51,23 @@ export function useWasteData() {
         const filledBins = Array.from(latestBinReadings.values())
           .filter(bin => parseFloat(bin.fillLevel) > 80).length;
 
+        // Get high fill level bins
+        const highFillBins = Array.from(latestBinReadings.values())
+          .filter(bin => parseFloat(bin.fillLevel) > 80)
+          .map(bin => ({
+            binId: bin.binId,
+            fillLevel: bin.fillLevel,
+            wasteType: bin.wasteType
+          }));
+
+        // Check for newly filled bins
+        const currentHighFillBinIds = new Set(highFillBins.map(bin => bin.binId));
+        const newlyFilledBins = highFillBins.filter(
+          bin => !previousHighFillBins.current.has(bin.binId)
+        );
+        
+        previousHighFillBins.current = currentHighFillBinIds;
+
         // Calculate waste type distribution for pie chart
         const pieChartData = {
           values: Object.values(wasteTypes)
@@ -59,9 +79,11 @@ export function useWasteData() {
           totalWaste: totalWaste,
           commonWaste,
           filledBins,
+          highFillBins, // Add this to state
           isLoading: false,
           error: null,
-          pieChartData
+          pieChartData,
+          newHighFillBins: newlyFilledBins
         });
       } catch (error) {
         setData(prev => ({ 
