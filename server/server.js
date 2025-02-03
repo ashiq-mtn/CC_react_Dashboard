@@ -13,8 +13,8 @@ app.use(express.static('./'));
 
 // InfluxDB client setup
 const client = new InfluxDBClient({
-  host: "https://us-east-1-1.aws.cloud2.influxdata.com",
-  token: "8KRxJ86Au_Jxxanx-Cd6rJd5eXuv5UP2p_vtRa_uHAJMHTwzRTJHaWaEXAy-OoM4f_6XcGZmbNU9eis7gTlq6A=="
+  host: "https://eu-central-1-1.aws.cloud2.influxdata.com",
+  token: "Kn7SDJ8Ai0nEFqovtToZ5v4v-Q5NEVTNNtCnFjeOtaBUxLm2U43LuVpS1DYJIQulJQzBU9lWZ7cDov1eGDDEoQ=="
 });
 
 // Store the last update time
@@ -24,19 +24,19 @@ let lastUpdateTime = new Date().getTime();
 app.get('/api/waste-data', async (req, res) => {
   try {
     const query = `SELECT *
-      FROM "Dashboard"
-      WHERE time >= now() - interval '30 days'
-      AND ("Fill Level" IS NOT NULL OR "Waste Type" IS NOT NULL)
-      ORDER BY time desc`;
+    FROM "BinData"
+    WHERE time >= now() - interval '30 days'
+    AND ("Waste_type" IS NOT NULL OR "Fill_level" IS NOT NULL)
+    ORDER BY time desc`;
 
-    const rows = await client.query(query, 'TrialBucket');
+    const rows = await client.query(query, 'Cashcrow');
     const data = [];
 
     for await (const row of rows) {
       data.push({
-        binId: row["Bin ID"] || '',
-        wasteType: row["Waste Type"] || '',
-        fillLevel: row["Fill Level"] ? `${row["Fill Level"].toFixed(2)}%` : "0%",
+        binId: row["Bin_id"] || '',
+        wasteType: row["Waste_type"] || '',
+        fillLevel: row["Fill_level"] ? `${row["Fill_level"].toFixed(2)}%` : "0%",
         time: new Date(row.time)
       });
     }

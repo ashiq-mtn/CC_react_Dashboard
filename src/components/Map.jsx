@@ -2,16 +2,16 @@ import React, { useEffect, useRef } from 'react'
 import { useWasteData } from '../hooks/useWasteData'
 
 class ErrorBoundary extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = { hasError: false }
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError (error) {
     return { hasError: true }
   }
 
-  render() {
+  render () {
     if (this.state.hasError) {
       return <div>Something went wrong with the map.</div>
     }
@@ -27,7 +27,7 @@ const Maps = () => {
 
   // Predefined marker locations
   const markerLocations = [
-    { id: '001', longitude: 76.8220416, latitude: 9.52876 },
+    { id: '123', longitude: 76.8220416, latitude: 9.52876 },
     { id: '002', longitude: 76.821451, latitude: 9.528223 },
     { id: '003', longitude: 76.82238, latitude: 9.527512 },
     { id: '004', longitude: 76.822876, latitude: 9.528128 },

@@ -70,6 +70,7 @@ export function useWasteData() {
 
         // Calculate waste type distribution for pie chart
         const pieChartData = {
+          wasteTypes: Object.keys(wasteTypes),
           values: Object.values(wasteTypes)
         };
 

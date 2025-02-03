@@ -8,6 +8,13 @@ function PieChart () {
   const isInitialLoad = useRef(true)
   const { pieChartData, isLoading } = useWasteData()
 
+  // Add waste type color mapping
+  const wasteTypeColors = {
+    'Paper': '#2DCE89',
+    'Plastic': '#68D7FE',
+    'Other': '#F4777C'
+  }
+
   const hasDataChanged = () => {
     if (!previousData.current) return true
     return JSON.stringify(previousData.current) !== JSON.stringify(pieChartData)
@@ -19,12 +26,15 @@ function PieChart () {
         chartInstance.current.destroy()
       }
 
+      // Get unique waste types from data
+      const uniqueWasteTypes = [...new Set(pieChartData.wasteTypes || [])]
+
       const dataPie = {
-        labels: ['Plastic', 'Paper', 'Other'],
+        labels: uniqueWasteTypes, // Dynamic labels based on actual waste types
         datasets: [
           {
             data: pieChartData.values,
-            backgroundColor: ['#2DCE89', '#68D7FE', '#F4777C'],
+            backgroundColor: uniqueWasteTypes.map(type => wasteTypeColors[type] || '#F4777C'), // Map colors to waste types
             hoverOffset: 4
           }
         ]
