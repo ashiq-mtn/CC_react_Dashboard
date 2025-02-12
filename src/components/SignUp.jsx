@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { auth,provider } from './firebaseConfig'
 import { useNavigate } from 'react-router-dom'
-import { signInWithEmailAndPassword,signInWithPopup } from 'firebase/auth'
+import { createUserWithEmailAndPassword,signInWithPopup } from 'firebase/auth'
 
-function SignIn () {
+function SignUp () {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     email: '',
@@ -12,18 +12,23 @@ function SignIn () {
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
     setIsLoading(true)
     try {
-      await signInWithEmailAndPassword(auth, formData.email, formData.password)
+      await createUserWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      )
       navigate('/dashboard')
     } catch (error) {
       alert(error.message)
     }
     setIsLoading(false)
   }
+
   const handleGoogleButton = async () => {
     try {
       await signInWithPopup(auth, provider)
@@ -40,10 +45,10 @@ function SignIn () {
         {/* Logo/Header Section */}
         <div className='text-center mb-8'>
           <h2 className='text-3xl font-bold text-gray-900 dark:text-white'>
-            Welcome Back
+            Welcome to Cashcrow
           </h2>
           <p className='mt-2 text-sm text-gray-600 dark:text-gray-400'>
-            Please sign in to your account
+            Please sign up to your account
           </p>
           {error && <p className='mt-2 text-sm text-red-600'>{error}</p>}
         </div>
@@ -101,9 +106,9 @@ function SignIn () {
             <button
               type='submit'
               disabled={isLoading}
-              className='w-full flex justify-center py-2 px-4 border border-transparent rounded-sm shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 disabled:opacity-50'
+              className='cursor-pointer w-full flex justify-center py-2 px-4 border border-transparent rounded-sm shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 disabled:opacity-50'
             >
-              {isLoading ? 'Signing in...' : 'Sign in'}
+              {isLoading ? 'Signing up...' : 'Sign up'}
             </button>
           </form>
 
@@ -113,12 +118,11 @@ function SignIn () {
             <span className='mx-4 text-gray-600'>or</span>
             <hr className='flex-grow border-t border-gray-600' />
           </div>
-
+          
           {/* Google Button */}
-          <button
-            onClick={handleGoogleButton}
-            class='cursor-pointer w-full justify-center text-white flex gap-2 items-center bg-transparent border border-gray-600 px-4 py-2 rounded-sm font-medium text-sm hover:bg-white hover:text-black transition-all ease-in duration-200'
-          >
+          <button 
+          onClick={handleGoogleButton}
+          class='cursor-pointer w-full justify-center text-white flex gap-2 items-center bg-transparent border border-gray-600 px-4 py-2 rounded-sm font-medium text-sm hover:bg-white hover:text-black transition-all ease-in duration-200'>
             <svg
               viewBox='0 0 48 48'
               xmlns='http://www.w3.org/2000/svg'
@@ -144,15 +148,15 @@ function SignIn () {
             Continue with Google
           </button>
 
-          {/* Sign Up Link */}
+          {/* Sign In Link */}
           <div className='mt-6 text-center'>
             <p className='text-sm text-gray-600 dark:text-gray-400'>
-              Don't have an account?{' '}
+              Already have an account?{' '}
               <a
-                onClick={() => navigate('/')}
+                onClick={() => navigate('/signIn')}
                 className='font-medium text-blue-500 hover:text-blue-400 cursor-pointer'
               >
-                Sign up
+                Sign In
               </a>
             </p>
           </div>
@@ -162,4 +166,4 @@ function SignIn () {
   )
 }
 
-export default SignIn
+export default SignUp
