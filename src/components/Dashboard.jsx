@@ -1,11 +1,11 @@
 import Navbar from './Navbar.jsx'
-import Maps from './Map.jsx'
+import Maps from './Map2.jsx'
 import HeaderCard from './HeaderCard.jsx'
 import PieChart from './PieChart.jsx'
 import Table from './Table.jsx'
 import Toast from './Toast.jsx'
 
-function Dashboard() {
+function Dashboard () {
   return (
     <div className='min-h-screen w-full overflow-x-hidden'>
       <Navbar />
@@ -23,7 +23,7 @@ function Dashboard() {
         <Toast />
       </main>
     </div>
-  );
+  )
 }
 
-export default Dashboard;
+export default Dashboard
