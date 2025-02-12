@@ -153,7 +153,7 @@ function SignUp () {
             <p className='text-sm text-gray-600 dark:text-gray-400'>
               Already have an account?{' '}
               <a
-                onClick={() => navigate('/signIn')}
+                onClick={() => navigate('/')}
                 className='font-medium text-blue-500 hover:text-blue-400 cursor-pointer'
               >
                 Sign In

@@ -1,4 +1,4 @@
-import { useWasteData } from '../hooks/useWasteData'
+import { useWasteData } from '../../hooks/useWasteData'
 import { useState } from 'react'
 
 function Table() {
@@ -119,7 +119,7 @@ function Table() {
               <button
                 onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}
-                className="cursor-pointer flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-slate-200 dark:border-gray-300 dark:text-black dark:hover:bg-gray-700 dark:hover:text-white disabled:opacity-50"
+                className="cursor-pointer flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-slate-200 dark:border-gray-300 dark:text-black dark:hover:bg-gray-500 dark:hover:text-white disabled:opacity-50"
               >
                 Previous
               </button>
@@ -146,7 +146,7 @@ function Table() {
               <button
                 onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                 disabled={currentPage === totalPages}
-                className="cursor-pointer flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-slate-200 dark:border-gray-300 dark:text-black dark:hover:bg-gray-700 dark:hover:text-white disabled:opacity-50"
+                className="cursor-pointer flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-slate-200 dark:border-gray-300 dark:text-black dark:hover:bg-gray-500 dark:hover:text-white disabled:opacity-50"
               >
                 Next
               </button>
