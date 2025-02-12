@@ -13,10 +13,17 @@ function Table() {
   const currentData = wasteData.slice(startIndex, endIndex)
 
   const formatTime = timestamp => {
-    return new Date(timestamp).toLocaleTimeString('en-US', {
+    return new Date(timestamp).toLocaleString('en-US', {
       hour: 'numeric',
       minute: '2-digit',
       hour12: true
+    })
+  }
+  const formatDate = timestamp => {
+    return new Date(timestamp).toLocaleString('en-US', {
+      month: '2-digit',
+      day: '2-digit',
+      year: 'numeric'
     })
   }
 
@@ -51,24 +58,27 @@ function Table() {
         <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-800'>
           <thead className='text-[13px] text-gray-700 border-b-1 border-slate-300 bg-stone-50 dark:bg-slate-100 dark:text-gray-500'>
             <tr>
-              <th scope='col' className='px-6 py-4'>
+              <th scope='col' className='w-[18%] pl-16 pr-6 py-4'>
                 Bin ID
               </th>
-              <th scope='col' className='px-6 py-4'>
+              <th scope='col' className='w-[25%] px-6 py-4'>
                 Waste Type
               </th>
-              <th scope='col' className='px-6 py-4'>
+              <th scope='col' className='w-[25%] px-6 py-4'>
                 Fill level
               </th>
-              <th scope='col' className='px-6 py-4'>
+              <th scope='col' className='w-[20%] px-6 py-4'>
                 Time
+              </th>
+              <th scope='col' className='w-[20%] px-6 py-4'>
+                Date
               </th>
             </tr>
           </thead>
           <tbody>
             {isLoading ? (
               <tr>
-                <td colSpan='4' className='px-6 py-4 text-center'>
+                <td colSpan='4' className='px-6 py-4'>
                   Loading...
                 </td>
               </tr>
@@ -78,20 +88,17 @@ function Table() {
                   key={index}
                   className='bg-white border-b-1 border-slate-200 hover:bg-gray-50 dark:hover:bg-slate-200'
                 >
-                  <td className='px-6 py-4 font-semibold'>{row.binId}</td>
+                  <td className='pl-16 pr-6 py-4 font-semibold'>{row.binId}</td>
                   <td className='px-6'>
                     <div>
-                      <span
-                        className={`px-4 py-1 text-white rounded-sm ${
-                          wasteTypeColors[row.wasteType] || 'bg-gray-500'
-                        }`}
-                      >
+                      <span className={`px-4 py-1 text-white rounded-sm ${wasteTypeColors[row.wasteType] || 'bg-gray-500'}`}>
                         {row.wasteType}
                       </span>
                     </div>
                   </td>
                   <td className='px-6 py-4'>{row.fillLevel}</td>
                   <td className='px-6 py-4'>{formatTime(row.time)}</td>
+                  <td className='px-6 py-4'>{formatDate(row.time)}</td>
                 </tr>
               ))
             )}
