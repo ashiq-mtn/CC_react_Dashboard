@@ -1,7 +1,16 @@
 import { useWasteData } from '../hooks/useWasteData'
+import { useState } from 'react'
 
-function Table () {
+function Table() {
   const { tableData: wasteData, isLoading, error } = useWasteData()
+  const [currentPage, setCurrentPage] = useState(1)
+  const [inputPage, setInputPage] = useState('')
+  const itemsPerPage = 10
+
+  const totalPages = Math.ceil(wasteData.length / itemsPerPage)
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+  const currentData = wasteData.slice(startIndex, endIndex)
 
   const formatTime = timestamp => {
     return new Date(timestamp).toLocaleTimeString('en-US', {
@@ -15,6 +24,21 @@ function Table () {
     Paper: 'bg-green-400',
     Plastic: 'bg-blue-400',
     Other: 'bg-red-400'
+  }
+
+  const handlePageInput = (e) => {
+    const value = e.target.value
+    setInputPage(value)
+  }
+
+  const handlePageSubmit = (e) => {
+    if (e.key === 'Enter') {
+      const pageNum = parseInt(inputPage)
+      if (pageNum >= 1 && pageNum <= totalPages) {
+        setCurrentPage(pageNum)
+      }
+      setInputPage('')
+    }
   }
 
   return (
@@ -49,7 +73,7 @@ function Table () {
                 </td>
               </tr>
             ) : (
-              wasteData.map((row, index) => (
+              currentData.map((row, index) => (
                 <tr
                   key={index}
                   className='bg-white border-b-1 border-slate-200 hover:bg-gray-50 dark:hover:bg-slate-200'
@@ -73,8 +97,58 @@ function Table () {
             )}
           </tbody>
         </table>
+
+        <nav className="flex items-center flex-column flex-wrap md:flex-row justify-between p-4" aria-label="Table navigation">
+          <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+            Showing <span className="font-semibold text-gray-900">
+              {startIndex + 1}-{Math.min(endIndex, wasteData.length)}
+            </span> of <span className="font-semibold text-gray-900">
+              {wasteData.length}
+            </span>
+          </span>
+          
+          <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+            <li>
+              <button
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className="cursor-pointer flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-slate-200 dark:border-gray-300 dark:text-black dark:hover:bg-gray-700 dark:hover:text-white disabled:opacity-50"
+              >
+                Previous
+              </button>
+            </li>
+            
+            <li>
+              <input
+                type="number"
+                min="1"
+                max={totalPages}
+                value={inputPage}
+                onChange={handlePageInput}
+                onKeyDown={handlePageSubmit}
+                placeholder={currentPage}
+                    className="w-16 h-8 text-center border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-200 dark:border-gray-300 dark:text-black [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              />
+            </li>
+            
+            <li className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 dark:bg-slate-200 dark:border-gray-300 dark:text-black">
+              of {totalPages}
+            </li>
+            
+            <li>
+              <button
+                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}
+                className="cursor-pointer flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-slate-200 dark:border-gray-300 dark:text-black dark:hover:bg-gray-700 dark:hover:text-white disabled:opacity-50"
+              >
+                Next
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
+
   )
 }
 
