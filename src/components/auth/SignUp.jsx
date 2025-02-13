@@ -12,6 +12,17 @@ function SignUp () {
   })
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  // Function to check password strength
+  function isPasswordStrong(password) {
+    // Check for minimum length, presence of uppercase letters, lowercase letters, numbers, and special characters
+    const minLength = 8;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(password);
+
+    return password.length >= minLength && hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -20,6 +31,12 @@ function SignUp () {
 
     if (formData.password !== formData.confirm_password) {
       setError('Passwords do not match')
+      setIsLoading(false)
+      return
+    }
+
+    if (isPasswordStrong(formData.password) === false) {
+      setError('Use a strong password (minimum 8 characters with uppercase, lowercase, number, and special character)')
       setIsLoading(false)
       return
     }
