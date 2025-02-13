@@ -7,7 +7,8 @@ function SignUp () {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
+    confirm_password: ''
   })
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -16,6 +17,13 @@ function SignUp () {
     e.preventDefault()
     setError('')
     setIsLoading(true)
+
+    if (formData.password !== formData.confirm_password) {
+      setError('Passwords do not match')
+      setIsLoading(false)
+      return
+    }
+
     try {
       await createUserWithEmailAndPassword(
         auth,
@@ -98,6 +106,29 @@ function SignUp () {
                 value={formData.password}
                 onChange={e =>
                   setFormData({ ...formData, password: e.target.value })
+                }
+              />
+            </div>
+
+            {/* Confirm Password Field */}
+            <div>
+              <label
+                htmlFor='confirm_password'
+                className='block text-sm font-medium text-gray-700 dark:text-gray-300'
+              >
+                Confirm Password
+              </label>
+              <input
+                id='confirm_password'
+                type='password'
+                required
+                className='mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-700 border border-gray-300 dark:border-slate-600 rounded-sm text-sm shadow-sm placeholder-gray-400
+                focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                dark:text-gray-300'
+                placeholder='Confirm your password'
+                value={formData.confirm_password}
+                onChange={e =>
+                  setFormData({ ...formData, confirm_password: e.target.value })
                 }
               />
             </div>
